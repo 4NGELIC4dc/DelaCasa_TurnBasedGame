@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DelaCasa_MyFirstApp</string>
+    <string name="helloWorld">Hello TVL-ICT</string>
+    <string name="imgDescription">Background Picture</string>
+    <string name="button">Click Me</string>
+    <string name="secondDialogue">Kaedehara Kazuha says hi!</string>
+</resources>
