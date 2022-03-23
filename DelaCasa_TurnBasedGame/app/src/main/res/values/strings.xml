@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">DelaCasa_TurnBasedGame</string>
+    <string name="startButton">Click to Start!</string>
+    <string name="imgDescription">background picture</string>
+    <string name="cntDescription">content description</string>
+    <string name="combatLog">- - - -</string>
+    //here and enemy functions
+    <string name="hero_name">Tabby Cat</string>
+    <string name="enemy_name">Wild Cat</string>
+    <string name="heroHP">NaN</string>
+    <string name="monsHP">NaN</string>
+    <string name="heroDMG">NaN</string>
+    <string name="monsDMG">NaN</string>
+    <string name="heroEnergy">NaN</string>
+    //buttons
+    <string name="attack">Attack!</string>
+    <string name="skill1">Scratch!</string>
+    <string name="skill2">Bite!</string>
+    <string name="skill3">Pounce!</string>
+    //normal text
+    <string name="normalTxtHeroHP">Your Health:</string>
+    <string name="normalTxtMonsHP">:Enemy Health</string>
+    <string name="normalTxtEnergy">Your Energy:</string>
+    <string name="normalTxtHeroDMG">Your Damage:</string>
+    <string name="normalTxtMonsDMG">:Enemy Damage</string>
+
+</resources>
