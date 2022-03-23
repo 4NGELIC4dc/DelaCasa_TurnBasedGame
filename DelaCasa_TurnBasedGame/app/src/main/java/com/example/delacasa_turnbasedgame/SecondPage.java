@@ -15,9 +15,11 @@ import java.util.Random;
 
 public class SecondPage extends AppCompatActivity implements View.OnClickListener {
 
+
+
     TextView heroName, monsName, heroHP, heroEN, heroDMG, monsHP, monsDMG, combatLog;
     Button attackBtn;
-    ImageButton skill1, skill2, skill3;
+    ImageButton skill1Btn, skill2Btn, skill3Btn;
 
     //Hero Class
     int heroHealth = 2000;
@@ -71,33 +73,15 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
         heroDMG.setText(String.valueOf(heroMinDMG) + " ~ " + String.valueOf(heroMaxDMG));
         monsDMG.setText(String.valueOf(monsMinDMG) + " ~ " + String.valueOf(monsMaxDMG));
         //Skill XML
-        skill1 = (findViewById(R.id.skill1Btn));
-        skill2 = (findViewById(R.id.skill2Btn));
-        skill3 = (findViewById(R.id.skill3Btn));
+        skill1Btn = (findViewById(R.id.skill1Btn));
+        skill2Btn = (findViewById(R.id.skill2Btn));
+        skill3Btn = (findViewById(R.id.skill3Btn));
         //Button onClick Listeners
         attackBtn.setOnClickListener(this);
-        skill1.setOnClickListener(this);
-        skill2.setOnClickListener(this);
-        skill3.setOnClickListener(this);
+        skill1Btn.setOnClickListener(this);
+        skill2Btn.setOnClickListener(this);
+        skill3Btn.setOnClickListener(this);
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(SecondPage.this, R.raw.second_bgm);
-        mediaPlayer.start();
-        mediaPlayer.setLooping(true);
-        mediaPlayer.setOnErrorListener((mediaPlayer1, what, extra) -> {
-            switch (extra){
-                case MediaPlayer.MEDIA_ERROR_IO:
-                case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-                case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
-                case MediaPlayer.MEDIA_ERROR_UNKNOWN:
-                case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
-                case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-                case MediaPlayer.MEDIA_ERROR_MALFORMED:
-                    break;
-            }
-            return true;
-
-
-        });
 
     }
 
@@ -106,41 +90,41 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
 
         //Combat Log XML
-        combatLog = findViewById(R.id.combatLog);
+        combatLog = findViewById(R.id.combatLogtxt);
 
         Random random = new Random();
         int heroDPS = random.nextInt(heroMaxDMG - heroMinDMG) + heroMinDMG;
         int monsDPS = random.nextInt(monsMaxDMG - monsMinDMG) + monsMinDMG;
 
         if (turnNumber % 2 == 1) { //if enemy's turn, disable button
-            skill1.setEnabled(false);
-            skill2.setEnabled(false);
-            skill3.setEnabled(false);
+            skill1Btn.setEnabled(false);
+            skill2Btn.setEnabled(false);
+            skill3Btn.setEnabled(false);
         }
         else if (turnNumber % 2 == 0) { //if your turn, enable button
             if (skillcounter1 > 0){
-                skill1.setEnabled(false);
+                skill1Btn.setEnabled(false);
             }
             else if(skillcounter1 == 0){
-                skill1.setEnabled(true);
+                skill1Btn.setEnabled(true);
             }
             else{
                 combatLog.setText("Wait for your turn!");
             }
             if (skillcounter2 > 0){
-                skill1.setEnabled(false);
+                skill2Btn.setEnabled(false);
             }
             else if(skillcounter2 == 0){
-                skill1.setEnabled(true);
+                skill2Btn.setEnabled(true);
             }
             else{
                 combatLog.setText("Wait for your turn!");
             }
             if (skillcounter3 > 0){
-                skill1.setEnabled(false);
+                skill3Btn.setEnabled(false);
             }
             else if(skillcounter3 == 0){
-                skill1.setEnabled(true);
+                skill3Btn.setEnabled(true);
             }
             else{
                 combatLog.setText("Wait for your turn!");
@@ -150,7 +134,6 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
 
                 case R.id.skill1Btn:
 
-                monsHealth = monsHealth - 100;
                 turnNumber++;
                 monsHP.setText(String.valueOf(monsHealth));
                 attackBtn.setText("Attack (" + String.valueOf(turnNumber) + ")");
@@ -183,7 +166,7 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
                     attackBtn.setText("Attack (" + String.valueOf(turnNumber) + ")");
                     combatLog.setText("Your " + String.valueOf(heroName) + " used Bite! It dealt " + String.valueOf(150) + "damage to the enemy!");
                     disabledstatus = true;
-                    statuscounter = 5;
+                    statuscounter = 10;
 
                     if (monsHealth < 0) {
                         combatLog.setText("Your " + String.valueOf(heroName) + " dealt " + String.valueOf(heroDPS) + " damage to the enemy! You win!");
@@ -286,5 +269,6 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
 
 
             }
+
     }
 }}
