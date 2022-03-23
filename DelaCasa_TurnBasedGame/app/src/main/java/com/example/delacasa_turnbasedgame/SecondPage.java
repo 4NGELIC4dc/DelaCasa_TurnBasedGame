@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class SecondPage extends AppCompatActivity implements View.OnClickListener {
 
-    TextView heroName, monsName, heroHP, heroEN, heroDMG, monsHP, monsDMG, combatLog;
+    TextView heroName, monsName, heroHP, heroEN, heroDMG, monsHP, monsDMG, combatLogtxt;
     Button attackBtn;
     ImageButton skill1Btn, skill2Btn, skill3Btn;
 
@@ -66,8 +66,8 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
         monsName.setText(monsNN);
         monsHP.setText(String.valueOf(monsHealth));
         //Damage XML
-        heroDMG.setText(String.valueOf(heroMinDMG) + " ~ " + String.valueOf(heroMaxDMG));
-        monsDMG.setText(String.valueOf(monsMinDMG) + " ~ " + String.valueOf(monsMaxDMG));
+        heroDMG.setText(heroMinDMG + " ~ " + heroMaxDMG);
+        monsDMG.setText(monsMinDMG + " ~ " + monsMaxDMG);
         //Skill XML
         skill1Btn = (findViewById(R.id.skill1Btn));
         skill2Btn = (findViewById(R.id.skill2Btn));
@@ -77,6 +77,8 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
         skill1Btn.setOnClickListener(this);
         skill2Btn.setOnClickListener(this);
         skill3Btn.setOnClickListener(this);
+
+
 
         MediaPlayer mediaPlayer = MediaPlayer.create(SecondPage.this, R.raw.second_bgm);
         mediaPlayer.start();
@@ -102,187 +104,180 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
 
         //Combat Log XML
-        combatLog = findViewById(R.id.combatLogtxt);
+        combatLogtxt = findViewById(R.id.combatLogtxt);
 
         Random randomizer = new Random();
         int heroDPS = randomizer.nextInt(heroMaxDMG - heroMinDMG) + heroMinDMG;
         int monsDPS = randomizer.nextInt(monsMaxDMG - monsMinDMG) + monsMinDMG;
 
-        if (turnNumber % 2 == 1) { //if enemy's turn, disable button
+        if (turnNumber % 2 != 1) { //if enemy's turn, disable button
             skill1Btn.setEnabled(false);
             skill2Btn.setEnabled(false);
             skill3Btn.setEnabled(false);
         }
-        else if (turnNumber % 2 == 0) { //if your turn, enable button
-            if (skillcounter1 > 0){
+        else if (turnNumber % 2 == 1) { //if your turn, enable button
+            skill1Btn.setEnabled(true);
+            skill2Btn.setEnabled(true);
+            skill3Btn.setEnabled(true);
+        }
+            if (skillcounter1 > 0) {
                 skill1Btn.setEnabled(false);
             }
-            else if(skillcounter1 == 0){
+            else if (skillcounter1 == 0) {
                 skill1Btn.setEnabled(true);
             }
-            else{
-                combatLog.setText("Wait for your turn!");
+            else {
+                combatLogtxt.setText("Wait for your turn!");
             }
-            if (skillcounter2 > 0){
+            if (skillcounter2 > 0) {
                 skill2Btn.setEnabled(false);
             }
-            else if(skillcounter2 == 0){
+            else if (skillcounter2 == 0) {
                 skill2Btn.setEnabled(true);
             }
-            else{
-                combatLog.setText("Wait for your turn!");
+            else {
+                combatLogtxt.setText("Wait for your turn!");
             }
-            if (skillcounter3 > 0){
+            if (skillcounter3 > 0) {
                 skill3Btn.setEnabled(false);
             }
-            else if(skillcounter3 == 0){
+            else if (skillcounter3 == 0) {
                 skill3Btn.setEnabled(true);
             }
-            else{
-                combatLog.setText("Wait for your turn!");
+            else {
+                combatLogtxt.setText("Wait for your turn!");
             }
 
-            switch(view.getId()) {
+        switch (view.getId()) {
 
-                case R.id.skill1Btn:
+            case R.id.skill1Btn:
 
                 turnNumber++;
                 monsHP.setText(String.valueOf(monsHealth));
-                attackBtn.setText("Attack (" + String.valueOf(turnNumber) + ")");
-                combatLog.setText("Your " + String.valueOf(heroName) + " used Scratch! It dealt " + String.valueOf(100) + "damage to the enemy!");
-                disabledstatus = true;
-                statuscounter = 5;
+                attackBtn.setText("Attack (" + turnNumber + ")");
+                combatLogtxt.setText("Your " + heroNN + " used Scratch! It dealt " + 100 + "damage to the enemy!");
 
                 if (monsHealth < 0) {
-                    combatLog.setText("Your " + String.valueOf(heroName) + " dealt " + String.valueOf(heroDPS) + " damage to the enemy! You win!");
+                    combatLogtxt.setText("Your " + heroNN + " dealt " + heroDPS + " damage to the enemy! You win!");
                     heroHealth = 2000;
                     heroEnergy = 1000;
                     monsHealth = 2000;
                     turnNumber = 1;
                     attackBtn.setText("Restart?");
-
+                }
                 if (heroEnergy > 100) {
                     heroEnergy -= 50;
                     monsHealth -= 100;
                     skillcounter1 = 15;
                 }
 
+                break;
+
+            case R.id.skill2Btn:
+
+                turnNumber++;
+                monsHP.setText(String.valueOf(monsHealth));
+                attackBtn.setText("Attack (" + turnNumber + ")");
+                combatLogtxt.setText("Your " + heroNN + " used Bite! It dealt " + 150 + "damage to the enemy!");
+
+
+                if (monsHealth < 0) {
+                    combatLogtxt.setText("Your " + heroNN + " dealt " + heroDPS + " damage to the enemy! You win!");
+                    heroHealth = 2000;
+                    heroEnergy = 1000;
+                    monsHealth = 2000;
+                    turnNumber = 1;
+                    attackBtn.setText("Restart?");
+
+                }
+
+                if (heroEnergy > 250) {
+                    heroEnergy -= 100;
+                    monsHealth -= 200;
+                    skillcounter2 = 10;
                 }
 
                 break;
 
-                case R.id.skill2Btn:
+            case R.id.skill3Btn:
 
+                turnNumber++;
+                monsHP.setText(String.valueOf(monsHealth));
+                attackBtn.setText("Attack (" + turnNumber + ")");
+                combatLogtxt.setText("Your " + heroNN + " used Pounce! It dealt " + 300 + "damage to the enemy!");
+
+
+                if (monsHealth < 0) {
+                    combatLogtxt.setText("Your " + heroNN + " dealt " + heroDPS + " damage to the enemy! You win!");
+                    heroHealth = 2000;
+                    heroEnergy = 1000;
+                    monsHealth = 2000;
+                    turnNumber = 1;
+                    attackBtn.setText("Restart?");
+                }
+                if (heroEnergy > 500) {
+                    heroEnergy -= 150;
+                    monsHealth -= 300;
+                    skillcounter3 = 5;
+                }
+
+                break;
+            case R.id.attackBtn:
+
+                if (turnNumber % 2 == 1) {
+                    monsHealth = monsHealth - heroDPS;
                     turnNumber++;
                     monsHP.setText(String.valueOf(monsHealth));
-                    attackBtn.setText("Attack (" + String.valueOf(turnNumber) + ")");
-                    combatLog.setText("Your " + String.valueOf(heroName) + " used Bite! It dealt " + String.valueOf(150) + "damage to the enemy!");
-                    disabledstatus = true;
-                    statuscounter = 10;
+                    attackBtn.setText("Attack (" + turnNumber + ")");
+                    combatLogtxt.setText("Your " + heroNN + " dealt " + heroDPS + " damage to the enemy.");
 
-                    if (monsHealth < 0) {
-                        combatLog.setText("Your " + String.valueOf(heroName) + " dealt " + String.valueOf(heroDPS) + " damage to the enemy! You win!");
-                        heroHealth = 2000;
-                        heroEnergy = 1000;
-                        monsHealth = 2000;
-                        turnNumber = 1;
-                        attackBtn.setText("Restart?");
+                if (monsHealth < 0) {
+                    combatLogtxt.setText("Your " + heroNN + " dealt " + heroDPS + " damage to the enemy. You win!");
+                    heroHealth = 2000;
+                    heroEnergy = 1000;
+                    monsHealth = 2000;
+                    turnNumber = 1;
+                    attackBtn.setText("Restart?");
+                }
+                    skillcounter1--;
+                    skillcounter2--;
+                    skillcounter3--;
 
-
-                    if (heroEnergy > 250) {
-                        heroEnergy -= 100;
-                        monsHealth -= 200;
-                        skillcounter2 = 10;
-                    }
-
-
-                    }
-
-                    break;
-
-                case R.id.skill3Btn:
-
-                    turnNumber++;
-                    monsHP.setText(String.valueOf(monsHealth));
-                    attackBtn.setText("Attack (" + String.valueOf(turnNumber) + ")");
-                    combatLog.setText("Your " + String.valueOf(heroName) + " used Pounce! It dealt " + String.valueOf(300) + "damage to the enemy!");
-                    disabledstatus = true;
-                    statuscounter = 15;
-
-                    if (monsHealth < 0) {
-                        combatLog.setText("Your " + String.valueOf(heroName) + " dealt " + String.valueOf(heroDPS) + " damage to the enemy! You win!");
-                        heroHealth = 2000;
-                        heroEnergy = 1000;
-                        monsHealth = 2000;
-                        turnNumber = 1;
-                        attackBtn.setText("Restart?");
-
-                    if (heroEnergy > 500)   {
-                        heroEnergy -= 150;
-                        monsHealth -= 300;
-                        skillcounter3 = 5;
-                    }
-
-                    }
-
-                    break;
-                case R.id.attackBtn:
-
-                    if (turnNumber % 2 == 1){
-                        monsHealth = monsHealth - heroDPS;
+                }
+                else if (turnNumber % 2 != 1) {
+                    if (disabledstatus == true) {
+                        combatLogtxt.setText("The " + monsNN + " is still stunned for " + statuscounter + "turns.");
+                        statuscounter--;
                         turnNumber++;
-                        monsHP.setText(String.valueOf(monsHealth));
-                        attackBtn.setText("Attack ("+ String.valueOf(turnNumber)+")");
-                        combatLog.setText("Your " + String.valueOf(heroName) + " dealt " + String.valueOf(heroDPS) + " damage to the enemy.");
-
-                    if (monsHealth < 0){
-                        combatLog.setText("Your " + String.valueOf(heroName) + " dealt " + String.valueOf(heroDPS) + " damage to the enemy. You win!");
-                        heroHealth = 2000;
-                        heroEnergy = 1000;
-                        monsHealth = 2000;
-                        turnNumber = 1;
-                        attackBtn.setText("Restart?");
-
-                        skillcounter1--;
-                        skillcounter2--;
-                        skillcounter3--;
-
-                    }
-                    else if(turnNumber % 2 != 1){
-                        if (disabledstatus==true){
-                            combatLog.setText("The " + String.valueOf(monsName) + " is still stunned for " + String.valueOf(statuscounter) + "turns.");
-                            statuscounter--;
-                            turnNumber++;
-                            attackBtn.setText("Attack ( " + String.valueOf(turnNumber) + " )");
-                            if (statuscounter==0){
-                                disabledstatus=false;
-                            }
-                        }
-                        else{
-                            heroHealth = heroHealth - monsDPS;
-                            turnNumber++;
-                            heroHP.setText(String.valueOf(heroHealth));
-                            attackBtn.setText("Attack ( " + String.valueOf(turnNumber) + " )");
-                            combatLog.setText("The enemy " + String.valueOf(monsName) + " dealt " + String.valueOf(monsDPS) + "to you.");
-
-                            if (heroHealth < 0){
-                                attackBtn.setText("The enemy " + String.valueOf(monsName) + " dealt " + String.valueOf(monsDPS) + "to you. You lost.");
-                                heroHealth = 2000;
-                                heroEnergy = 1000;
-                                monsHealth = 2000;
-                                attackBtn.setText("Restart?");
-
-                            }
-                            break;
+                        attackBtn.setText("Attack ( " + turnNumber + " )");
+                        if (statuscounter == 0) {
+                            disabledstatus = false;
                         }
                     }
+                    else {
+                        heroHealth = heroHealth - monsDPS;
+                        turnNumber++;
+                        heroHP.setText(String.valueOf(heroHealth));
+                        attackBtn.setText("Attack ( " + turnNumber + " )");
+                        combatLogtxt.setText("The enemy " + monsNN + " dealt " + monsDPS + "to you.");
+
+                        if (heroHealth < 0) {
+                            attackBtn.setText("The enemy " + monsNN + " dealt " + monsDPS + "to you. You lost.");
+                            heroHealth = 2000;
+                            heroEnergy = 1000;
+                            monsHealth = 2000;
+                            attackBtn.setText("Restart?");
+
+                        }
 
                     }
 
-
-
-            }
+                }
+                break;
+        }
 
     }
 
-}}
+}
+
+
