@@ -41,14 +41,16 @@
         android:id="@+id/skill1Btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/skill1"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/skill2Btn"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/catHero"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639"
+        app:layout_constraintVertical_bias="0.498"
         app:srcCompat="@drawable/skill_scratch"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -56,14 +58,15 @@
         android:id="@+id/skill2Btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/skill2"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/skill1Btn"
+        app:layout_constraintEnd_toStartOf="@+id/tigerMons"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/catHero"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639"
+        app:layout_constraintVertical_bias="0.498"
         app:srcCompat="@drawable/skill_bite" />
 
     <ImageButton
@@ -73,12 +76,12 @@
         android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/skill3"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/attackBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tigerMons"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toEndOf="@+id/skill2Btn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898"
+        app:layout_constraintVertical_bias="0.498"
         app:srcCompat="@drawable/skill_pounce" />
 
     <Button

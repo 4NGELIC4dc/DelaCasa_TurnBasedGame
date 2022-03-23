@@ -15,8 +15,6 @@ import java.util.Random;
 
 public class SecondPage extends AppCompatActivity implements View.OnClickListener {
 
-
-
     TextView heroName, monsName, heroHP, heroEN, heroDMG, monsHP, monsDMG, combatLog;
     Button attackBtn;
     ImageButton skill1Btn, skill2Btn, skill3Btn;
@@ -43,8 +41,6 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
     int skillcounter1 = 0;
     int skillcounter2 = 0;
     int skillcounter3 = 0;
-
-
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -82,7 +78,23 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
         skill2Btn.setOnClickListener(this);
         skill3Btn.setOnClickListener(this);
 
+        MediaPlayer mediaPlayer = MediaPlayer.create(SecondPage.this, R.raw.second_bgm);
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+        mediaPlayer.setOnErrorListener((mediaPlayer1, what, extra) -> {
+            switch (extra) {
+                case MediaPlayer.MEDIA_ERROR_IO:
+                case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
+                case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
+                case MediaPlayer.MEDIA_ERROR_UNKNOWN:
+                case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
+                case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
+                case MediaPlayer.MEDIA_ERROR_MALFORMED:
+                    break;
+            }
+            return true;
 
+        });
     }
 
     @SuppressLint({"SetTextI18n", "NonConstantResourceId"})
@@ -92,9 +104,9 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
         //Combat Log XML
         combatLog = findViewById(R.id.combatLogtxt);
 
-        Random random = new Random();
-        int heroDPS = random.nextInt(heroMaxDMG - heroMinDMG) + heroMinDMG;
-        int monsDPS = random.nextInt(monsMaxDMG - monsMinDMG) + monsMinDMG;
+        Random randomizer = new Random();
+        int heroDPS = randomizer.nextInt(heroMaxDMG - heroMinDMG) + heroMinDMG;
+        int monsDPS = randomizer.nextInt(monsMaxDMG - monsMinDMG) + monsMinDMG;
 
         if (turnNumber % 2 == 1) { //if enemy's turn, disable button
             skill1Btn.setEnabled(false);
@@ -188,7 +200,7 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
 
                     break;
 
-                    case R.id.skill3Btn:
+                case R.id.skill3Btn:
 
                     turnNumber++;
                     monsHP.setText(String.valueOf(monsHealth));
@@ -264,6 +276,7 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
                             break;
                         }
                     }
+
                     }
 
 
@@ -271,4 +284,5 @@ public class SecondPage extends AppCompatActivity implements View.OnClickListene
             }
 
     }
+
 }}
